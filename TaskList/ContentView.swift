@@ -1,24 +1,42 @@
-//
-//  ContentView.swift
-//  TaskList
-//
-//  Created by Witek Mikolajczak on 12/06/2024.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            List {
+                ForEach(todos, id: \.self) { todo in
+                    NavigationLink(destination: TodoDetailView(todo: todo)) {
+                        HStack(alignment: .center) {
+                            VStack(alignment: .leading) {
+                                Text(todo.title)
+                                    .font(.title3)
+                                Text(formatDate(todo.date))
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                            }
+                            Spacer()
+                            StatusIndicator(status: todo.status)
+                        }
+                    }
+                }
+            }
+            .listStyle(.inset)
+            .padding()
+            .navigationTitle("Todo List")
         }
-        .padding()
+    }
+
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: date)
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }

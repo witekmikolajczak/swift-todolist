@@ -94,6 +94,7 @@
 		1A37B4DF2C1A4AD500FADA3B /* TaskList */ = {
 			isa = PBXGroup;
 			children = (
+				1A7056372C1EF1DA00BDB7ED /* New Group */,
 				1A37B4E02C1A4AD500FADA3B /* TaskListApp.swift */,
 				1A37B4E22C1A4AD500FADA3B /* ContentView.swift */,
 				1A37B4E42C1A4AD700FADA3B /* Assets.xcassets */,
@@ -125,6 +126,13 @@
 				1A37B4FD2C1A4AD700FADA3B /* TaskListUITestsLaunchTests.swift */,
 			);
 			path = TaskListUITests;
+			sourceTree = "<group>";
+		};
+		1A7056372C1EF1DA00BDB7ED /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
