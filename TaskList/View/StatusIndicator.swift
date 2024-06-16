@@ -1,8 +1,14 @@
-//
-//  StatusIndicator.swift
-//  TaskList
-//
-//  Created by Witek Mikolajczak on 16/06/2024.
-//
+import SwiftUI
 
-import Foundation
+struct StatusIndicator: View {
+    var status: TodoStatus
+
+    var body: some View {
+        Text(status.rawValue.capitalized)
+            .font(.caption)
+            .padding(5)
+            .background(status == .completed ? Color.green : Color.orange)
+            .foregroundColor(.white)
+            .cornerRadius(5)
+    }
+}

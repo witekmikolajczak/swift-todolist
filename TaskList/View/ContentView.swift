@@ -1,12 +1,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var todos: [Todo] = []
+    @State private var isAddingNewTodo = false
+    @State private var newTodo = Todo(
+        id: UUID(),
+        title: "",
+        description: "",
+        date: Date(),
+        status: .pending)
+    @State private var isEditingTodo = false
+    @State private var selectedTodo: Todo?
+
+    init() {
+        _todos = State(initialValue: UserDefaults.standard.loadTodos())
+    }
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(todos, id: \.self) { todo in
-                    NavigationLink(destination: TodoDetailView(todo: todo)) {
+                ForEach($todos) { $todo in
+                    NavigationLink(destination: TodoDetailView(todo: $todo, onEdit: {
+                        onEdit(todo: todo)
+                    })) {
                         HStack(alignment: .center) {
                             VStack(alignment: .leading) {
                                 Text(todo.title)
@@ -20,11 +36,75 @@ struct ContentView: View {
                         }
                     }
                 }
+                .onDelete(perform: deleteTodos)
+                .onMove(perform: moveTodos)
             }
             .listStyle(.inset)
             .padding()
             .navigationTitle("Todo List")
+            .navigationBarItems(leading: EditButton(), trailing: Button(action: showAddNewTodoView) {
+                Image(systemName: "plus")
+            })
+            .sheet(isPresented: $isAddingNewTodo) {
+                NavigationView {
+                    TodoEditView(
+                        todo: $newTodo,
+                        title:"Create Todo",
+                        onSave: saveNewTodo)
+                        .navigationTitle("Add Todo")
+                        .navigationBarItems(leading: Button("Cancel") {
+                            isAddingNewTodo = false
+                        })
+                }
+            }
+            .sheet(item: $selectedTodo) { todo in
+                if let index = todos.firstIndex(where: { $0.id == todo.id }) {
+                    NavigationView {
+                        TodoEditView(
+                            todo: $todos[index],
+                            title:"Edit Todo",
+                            onSave: saveEditedTodo)
+                            .navigationTitle("Edit Todo")
+                            .navigationBarItems(leading: Button("Cancel") {
+                                isEditingTodo = false
+                            })
+                    }
+                }
+            }
         }
+    }
+
+    private func showAddNewTodoView() {
+        newTodo = Todo(id: UUID(), title: "", description: "", date: Date(), status: .pending)
+        isAddingNewTodo = true
+    }
+
+    private func onEdit(todo: Todo) {
+        selectedTodo = todo
+        isEditingTodo = true
+    }
+
+    private func saveNewTodo() {
+        if !newTodo.title.isEmpty {
+            todos.append(newTodo)
+            UserDefaults.standard.saveTodos(todos)
+        }
+        isAddingNewTodo = false
+    }
+
+    private func saveEditedTodo() {
+        UserDefaults.standard.saveTodos(todos)
+        isEditingTodo = false
+    }
+
+    private func deleteTodos(at offsets: IndexSet) {
+        todos.remove(atOffsets: offsets)
+        UserDefaults.standard.saveTodos(todos)
+    }
+
+    private func moveTodos(from source: IndexSet, to destination: Int) {
+        todos.move(fromOffsets: source, toOffset: destination)
+        UserDefaults.standard.saveTodos(todos)
     }
 
     private func formatDate(_ date: Date) -> String {
