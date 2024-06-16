@@ -12,23 +12,7 @@ struct TodoAddView: View {
 
     var body: some View {
         Form {
-            Section(header: Text("Title")) {
-                TextField("Title", text: $newTodo.title)
-            }
-            Section(header: Text("Description")) {
-                TextField("Description", text: $newTodo.description)
-            }
-            Section(header: Text("Date")) {
-                DatePicker("Date", selection: $newTodo.date, displayedComponents: [.date, .hourAndMinute])
-            }
-            Section(header: Text("Status")) {
-                Picker("Status", selection: $newTodo.status) {
-                    ForEach(TodoStatus.allCases, id: \.self) { status in
-                        Text(status.rawValue.capitalized).tag(status)
-                    }
-                }
-                .pickerStyle(SegmentedPickerStyle())
-            }
+            TodoFormSections(todo: $newTodo)
         }
         .navigationTitle("Add Todo")
         .navigationBarItems(leading: Button("Cancel") {

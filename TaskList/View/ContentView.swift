@@ -3,12 +3,6 @@ import SwiftUI
 struct ContentView: View {
     @State private var todos: [Todo] = []
     @State private var isAddingNewTodo = false
-    @State private var newTodo = Todo(
-        id: UUID(),
-        title: "",
-        description: "",
-        date: Date(),
-        status: .pending)
     @State private var selectedTodo: Todo?
 
     init() {
@@ -17,55 +11,72 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach($todos) { $todo in
-                    NavigationLink(destination: TodoDetailView(todo: $todo, onEdit: {
-                        onEdit(todo: todo)
-                    })) {
-                        HStack(alignment: .center) {
-                            VStack(alignment: .leading) {
-                                Text(todo.title)
-                                    .font(.title3)
-                                Text(formatDate(todo.date))
-                                    .font(.subheadline)
-                                    .foregroundColor(.gray)
-                            }
-                            Spacer()
-                            StatusIndicator(status: todo.status)
-                        }
-                    }
-                }
-                .onDelete(perform: deleteTodos)
-                .onMove(perform: moveTodos)
+            VStack {
+                todoList
             }
-            .listStyle(.inset)
-            .padding()
             .navigationTitle("Todo List")
-            .navigationBarItems(leading: EditButton(), trailing: Button(action: showAddNewTodoView) {
-                Image(systemName: "plus")
-            })
-            .sheet(isPresented: $isAddingNewTodo) {
-                NavigationView {
-                    TodoAddView(onSave: saveNewTodo)
-                        .navigationTitle("Add Todo")
-                }
-            }
-            .sheet(item: $selectedTodo) { todo in
-                if let index = todos.firstIndex(where: { $0.id == todo.id }) {
-                    NavigationView {
-                        TodoEditView(
-                            todo: $todos[index],
-                            title: "Edit Todo",
-                            onSave: saveEditedTodo)
-                            .navigationTitle("Edit Todo")
+            .navigationBarItems(leading: EditButton(), trailing: addButton)
+            .sheet(isPresented: $isAddingNewTodo, content: addTodoView)
+            .sheet(item: $selectedTodo, content: editTodoView)
+        }
+    }
+    
+    private var todoList: some View {
+        List {
+            ForEach($todos) { $todo in
+                NavigationLink(destination: TodoDetailView(todo: $todo, onEdit: {
+                    onEdit(todo: todo)
+                })) {
+                    HStack(alignment: .center) {
+                        VStack(alignment: .leading) {
+                            Text(todo.title)
+                                .font(.title3)
+                            Text(formatDate(todo.date))
+                                .font(.subheadline)
+                                .foregroundColor(.gray)
+                        }
+                        Spacer()
+                        StatusIndicator(status: todo.status)
                     }
                 }
             }
+            .onDelete(perform: deleteTodos)
+            .onMove(perform: moveTodos)
+        }
+        .listStyle(InsetListStyle())
+        .padding()
+    }
+
+    private var addButton: some View {
+        Button(action: showAddNewTodoView) {
+            Image(systemName: "plus")
+        }
+    }
+    
+    private func addTodoView() -> some View {
+        NavigationView {
+            TodoAddView(onSave: saveNewTodo)
+                .navigationTitle("Add Todo")
+        }
+    }
+
+    private func editTodoView(todo: Todo) -> some View {
+        if let index = todos.firstIndex(where: { $0.id == todo.id }) {
+            return AnyView(
+                NavigationView {
+                    TodoEditView(
+                        todo: $todos[index],
+                        title: "Edit Todo",
+                        onSave: saveEditedTodo)
+                        .navigationTitle("Edit Todo")
+                }
+            )
+        } else {
+            return AnyView(EmptyView())
         }
     }
 
     private func showAddNewTodoView() {
-        newTodo = Todo(id: UUID(), title: "", description: "", date: Date(), status: .pending)
         isAddingNewTodo = true
     }
 
@@ -73,9 +84,9 @@ struct ContentView: View {
         selectedTodo = todo
     }
 
-    private func saveNewTodo(todo: Todo) {
-        if !todo.title.isEmpty {
-            todos.append(todo)
+    private func saveNewTodo(newTodo: Todo) {
+        if !newTodo.title.isEmpty {
+            todos.append(newTodo)
             UserDefaults.standard.saveTodos(todos)
         }
         isAddingNewTodo = false

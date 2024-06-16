@@ -20,6 +20,7 @@
 		1A7056412C1EF36E00BDB7ED /* TodoEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7056402C1EF36E00BDB7ED /* TodoEditView.swift */; };
 		1A7056442C1EF95700BDB7ED /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7056432C1EF95700BDB7ED /* UserDefaults.swift */; };
 		1A7056482C1F001600BDB7ED /* TodoAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7056472C1F001600BDB7ED /* TodoAddView.swift */; };
+		1A70564A2C1F017800BDB7ED /* TodoFormSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7056492C1F017800BDB7ED /* TodoFormSections.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,8 @@
 		1A7056402C1EF36E00BDB7ED /* TodoEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoEditView.swift; sourceTree = "<group>"; };
 		1A7056432C1EF95700BDB7ED /* UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		1A7056472C1F001600BDB7ED /* TodoAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoAddView.swift; sourceTree = "<group>"; };
+		1A7056492C1F017800BDB7ED /* TodoFormSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoFormSections.swift; sourceTree = "<group>"; };
+		1A70564B2C1F037F00BDB7ED /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +89,7 @@
 		1A37B4D42C1A4AD500FADA3B = {
 			isa = PBXGroup;
 			children = (
+				1A70564B2C1F037F00BDB7ED /* README.md */,
 				1A37B4DF2C1A4AD500FADA3B /* TaskList */,
 				1A37B4F02C1A4AD700FADA3B /* TaskListTests */,
 				1A37B4FA2C1A4AD700FADA3B /* TaskListUITests */,
@@ -157,6 +161,7 @@
 				1A70563E2C1EF2A500BDB7ED /* TodoDetailView.swift */,
 				1A7056472C1F001600BDB7ED /* TodoAddView.swift */,
 				1A7056402C1EF36E00BDB7ED /* TodoEditView.swift */,
+				1A7056492C1F017800BDB7ED /* TodoFormSections.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -301,6 +306,7 @@
 			files = (
 				1A7056412C1EF36E00BDB7ED /* TodoEditView.swift in Sources */,
 				1A70563F2C1EF2A500BDB7ED /* TodoDetailView.swift in Sources */,
+				1A70564A2C1F017800BDB7ED /* TodoFormSections.swift in Sources */,
 				1A70563B2C1EF25A00BDB7ED /* StatusIndicator.swift in Sources */,
 				1A37B4E32C1A4AD500FADA3B /* ContentView.swift in Sources */,
 				1A37B4E12C1A4AD500FADA3B /* TaskListApp.swift in Sources */,
