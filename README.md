@@ -1,83 +1,74 @@
-Understood. I'll generate a detailed project documentation based on the criteria provided. The documentation will include:
+1. **Specyfikację**
+2. **Warstwę funkcjonalną**
+3. **Warstwę widoku**
+4. **Konwencje nazewnicze i formatowanie kodu**
+5. **Dokumentację techniczną i przegląd kodu**
 
-1. **Specification**
-2. **Functional Layer**
-3. **View Layer**
-4. **Naming Conventions and Code Formatting**
-5. **Technical Documentation and Code Review**
+### 1. Specyfikacja
 
-Let's start with each section:
+#### i. Wymagania funkcjonalne
 
-### 1. Specification
+1. **Dodanie nowego zadania**: System powinien pozwalać użytkownikom na dodawanie nowych zadań z tytułem, opisem, datą realizacji i statusem.
+2. **Edycja zadania**: Użytkownicy powinni móc edytować istniejące zadania.
+3. **Usuwanie zadania**: Użytkownicy powinni móc usuwać zadania.
+4. **Wyświetlanie szczegółów zadania**: Użytkownicy powinni móc przeglądać szczegóły każdego zadania.
+5. **Lista zadań**: System powinien wyświetlać listę wszystkich zadań.
 
-#### i. Functional Requirements
+#### ii. Wymagania pozafunkcjonalne
 
-1. **Add New Task**: The system should allow users to add new tasks with a title, description, due date, and status.
-2. **Edit Task**: Users should be able to edit existing tasks.
-3. **Delete Task**: Users should be able to delete tasks.
-4. **View Task Details**: Users should be able to view details of each task.
-5. **List Tasks**: The system should display a list of all tasks.
+1. **Użyteczność**: System powinien mieć intuicyjny interfejs użytkownika, który jest łatwy w nawigacji.
+2. **Wydajność**: System powinien szybko ładować i wyświetlać zadania.
 
-#### ii. Non-functional Requirements
+#### iii. Opis projektu
 
-1. **Usability**: The system should have an intuitive user interface that is easy to navigate.
-2. **Performance**: The system should load and display tasks quickly.
+Projekt TaskList to aplikacja do zarządzania zadaniami, zbudowana przy użyciu SwiftUI. Pozwala użytkownikom na zarządzanie codziennymi zadaniami poprzez dodawanie, edytowanie, usuwanie i przeglądanie zadań. Każde zadanie zawiera tytuł, opis, datę realizacji i status. Aplikacja ma na celu dostarczenie prostego, ale skutecznego sposobu na organizowanie zadań i zwiększenie produktywności.
 
-#### iii. Project Description
+#### iv. Potencjalni odbiorcy
 
-The TaskList project is a task management application built using SwiftUI. It allows users to manage their daily tasks by adding, editing, deleting, and viewing tasks. Each task contains a title, description, due date, and status. The application aims to provide a simple yet effective way to organize tasks and enhance productivity.
+1. **Studenci**: Do śledzenia zadań domowych, projektów i terminów.
+2. **Profesjonaliści**: Do zarządzania zadaniami w pracy, spotkaniami i terminami.
 
-#### iv. Potential Users
+#### v. Potencjalne korzyści
 
-1. **Students**: To keep track of assignments, projects, and deadlines.
-2. **Professionals**: To manage work tasks, meetings, and deadlines.
+1. **Lepsza organizacja**: Pomaga użytkownikom utrzymać porządek w zadaniach w jednym miejscu.
+2. **Zwiększona produktywność**: Pozwala użytkownikom efektywnie zarządzać czasem i zadaniami.
 
-#### v. Potential Benefits
+### 2. Warstwa funkcjonalna
 
-1. **Improved Organization**: Helps users keep their tasks organized in one place.
-2. **Increased Productivity**: Allows users to efficiently manage their time and tasks.
+Wymagania funkcjonalne zostały zaimplementowane w następujący sposób:
 
-### 2. Functional Layer
+1. **Dodanie nowego zadania**: Zrealizowane za pomocą `TodoAddView`, które pozwala użytkownikom wprowadzać szczegóły zadania i zapisać nowe zadanie.
+2. **Edycja zadania**: Zrealizowane za pomocą `TodoEditView`, które pozwala użytkownikom modyfikować istniejące zadania.
+3. **Usuwanie zadania**: Zrealizowane w `ContentView`, gdzie użytkownicy mogą przesunąć, aby usunąć zadania.
+4. **Wyświetlanie szczegółów zadania**: Zrealizowane za pomocą `TodoDetailView`, które pokazuje szczegóły zadania.
+5. **Lista zadań**: Zrealizowane w `ContentView`, które wyświetla listę zadań.
 
-The functional requirements have been implemented as follows:
+### 3. Warstwa widoku
 
-1. **Add New Task**: Implemented using the `TodoAddView` which allows users to input task details and save the new task.
-2. **Edit Task**: Implemented using the `TodoEditView` which allows users to modify existing tasks.
-3. **Delete Task**: Implemented in the `ContentView` where users can swipe to delete tasks.
-4. **View Task Details**: Implemented using the `TodoDetailView` which shows the task details.
-5. **List Tasks**: Implemented in the `ContentView` which displays a list of tasks.
+#### i. Zgodność z warstwą kliencką
 
-### 3. View Layer
+Warstwa kliencka jest zgodna z wymaganiami funkcjonalnymi, zapewniając przyjazny dla użytkownika interfejs do dodawania, edytowania, przeglądania i usuwania zadań.
 
-#### i. Client Layer Compliance
+#### ii. Separacja logiki od widoku
 
-The client layer is compliant with the functional requirements, providing a user-friendly interface for adding, editing, viewing, and deleting tasks.
+Logika została oddzielona od komponentów widoku w następujący sposób:
 
-#### ii. Separation of Logic from View
+- **TodoFormSections.swift**: Reużywalny komponent dla sekcji formularza używanych zarówno w `TodoAddView`, jak i `TodoEditView`.
+- **ContentView.swift**: Zarządza listą zadań i nawigacją.
+- **UserDefaults.swift**: Obsługuje przechowywanie i pobieranie zadań.
 
-The logic has been separated from the view components as follows:
+### 4. Konwencje nazewnicze i formatowanie kodu
 
-- **TodoFormSections.swift**: A reusable component for the form sections used in both `TodoAddView` and `TodoEditView`.
-- **ContentView.swift**: Manages the list of tasks and navigation.
-- **UserDefaults.swift**: Handles the storage and retrieval of tasks.
+Kod jest zgodny z konwencjami nazewniczymi i zasadami formatowania typowymi dla Swift, w tym użyciem camelCase dla zmiennych i funkcji oraz PascalCase dla typów. Bloki kodu są odpowiednio wcięte i skomentowane tam, gdzie jest to konieczne.
 
-### 4. Naming Conventions and Code Formatting
+### 5. Dokumentacja techniczna i przegląd kodu
 
-The code follows Swift naming conventions and formatting guidelines, including the use of camelCase for variable and function names, and PascalCase for type names. Code blocks are properly indented and commented where necessary.
-
-### 5. Technical Documentation and Code Review
-
-This section provides an overview of the technical components and a review of the code.
+Ta sekcja zapewnia przegląd komponentów technicznych i przegląd kodu.
 
 #### TaskListApp.swift
 
 ```swift
-//
-//  TaskListApp.swift
-//  TaskList
-//
-//  Created by Witek Mikolajczak on 12/06/2024.
-//
+
 
 import SwiftUI
 
@@ -91,7 +82,7 @@ struct TaskListApp: App {
 }
 ```
 
-This file contains the main entry point of the application, setting up the `ContentView` as the initial view.
+Ten plik zawiera główny punkt wejścia aplikacji, ustawiając `ContentView` jako widok początkowy.
 
 #### UserDefaults.swift
 
@@ -102,13 +93,13 @@ extension UserDefaults {
     private enum Keys {
         static let todos = "todos"
     }
-    
+
     func saveTodos(_ todos: [Todo]) {
         if let encoded = try? JSONEncoder().encode(todos) {
             set(encoded, forKey: Keys.todos)
         }
     }
-    
+
     func loadTodos() -> [Todo] {
         if let savedTodos = data(forKey: Keys.todos) {
             if let decodedTodos = try? JSONDecoder().decode([Todo].self, from: savedTodos) {
@@ -120,7 +111,7 @@ extension UserDefaults {
 }
 ```
 
-This file provides methods to save and load tasks using `UserDefaults`.
+Ten plik dostarcza metody do zapisywania i ładowania zadań za pomocą `UserDefaults`.
 
 #### Todo.swift
 
@@ -141,7 +132,7 @@ struct Todo: Identifiable, Hashable, Codable {
 }
 ```
 
-This file defines the `Todo` model and its properties.
+Ten plik definiuje model `Todo` i jego właściwości.
 
 #### ContentView.swift
 
@@ -168,7 +159,7 @@ struct ContentView: View {
             .sheet(item: $selectedTodo, content: editTodoView)
         }
     }
-    
+
     private var todoList: some View {
         List {
             ForEach($todos) { $todo in
@@ -200,7 +191,7 @@ struct ContentView: View {
             Image(systemName: "plus")
         }
     }
-    
+
     private func addTodoView() -> some View {
         NavigationView {
             TodoAddView(onSave: saveNewTodo)
@@ -244,7 +235,9 @@ struct ContentView: View {
         UserDefaults.standard.saveTodos(todos)
     }
 
-    private func deleteTodos(at offsets: IndexSet) {
+    private
+
+ func deleteTodos(at offsets: IndexSet) {
         todos.remove(atOffsets: offsets)
         UserDefaults.standard.saveTodos(todos)
     }
@@ -269,7 +262,7 @@ struct ContentView_Previews: PreviewProvider {
 }
 ```
 
-This file contains the main view of the application, managing the list of tasks and navigation to other views.
+Ten plik zawiera główny widok aplikacji, zarządzając listą zadań i nawigacją do innych widoków.
 
 #### StatusIndicator.swift
 
@@ -296,7 +289,7 @@ struct StatusIndicator: View {
 }
 ```
 
-This file provides a visual indicator for the status of a task.
+Ten plik dostarcza wizualny wskaźnik statusu zadania.
 
 #### TodoAddView.swift
 
@@ -323,14 +316,12 @@ struct TodoAddView: View {
         }, trailing: Button("Save") {
             onSave(newTodo)
             presentationMode.wrappedValue.dismiss()
-       
-
- })
+        })
     }
 }
 ```
 
-This file provides the view for adding a new task.
+Ten plik dostarcza widok do dodawania nowego zadania.
 
 #### TodoDetailView.swift
 
@@ -371,7 +362,7 @@ struct TodoDetailView: View {
 }
 ```
 
-This file provides the view for displaying the details of a task.
+Ten plik dostarcza widok do wyświetlania szczegółów zadania.
 
 #### TodoEditView.swift
 
@@ -402,7 +393,7 @@ struct TodoEditView: View {
 }
 ```
 
-This file provides the view for editing an existing task.
+Ten plik dostarcza widok do edytowania istniejącego zadania.
 
 #### TodoFormSections.swift
 
@@ -433,5 +424,3 @@ struct TodoFormSections: View {
     }
 }
 ```
-
-
