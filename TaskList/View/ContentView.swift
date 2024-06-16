@@ -9,7 +9,6 @@ struct ContentView: View {
         description: "",
         date: Date(),
         status: .pending)
-    @State private var isEditingTodo = false
     @State private var selectedTodo: Todo?
 
     init() {
@@ -47,14 +46,8 @@ struct ContentView: View {
             })
             .sheet(isPresented: $isAddingNewTodo) {
                 NavigationView {
-                    TodoEditView(
-                        todo: $newTodo,
-                        title:"Create Todo",
-                        onSave: saveNewTodo)
+                    TodoAddView(onSave: saveNewTodo)
                         .navigationTitle("Add Todo")
-                        .navigationBarItems(leading: Button("Cancel") {
-                            isAddingNewTodo = false
-                        })
                 }
             }
             .sheet(item: $selectedTodo) { todo in
@@ -62,12 +55,9 @@ struct ContentView: View {
                     NavigationView {
                         TodoEditView(
                             todo: $todos[index],
-                            title:"Edit Todo",
+                            title: "Edit Todo",
                             onSave: saveEditedTodo)
                             .navigationTitle("Edit Todo")
-                            .navigationBarItems(leading: Button("Cancel") {
-                                isEditingTodo = false
-                            })
                     }
                 }
             }
@@ -81,12 +71,11 @@ struct ContentView: View {
 
     private func onEdit(todo: Todo) {
         selectedTodo = todo
-        isEditingTodo = true
     }
 
-    private func saveNewTodo() {
-        if !newTodo.title.isEmpty {
-            todos.append(newTodo)
+    private func saveNewTodo(todo: Todo) {
+        if !todo.title.isEmpty {
+            todos.append(todo)
             UserDefaults.standard.saveTodos(todos)
         }
         isAddingNewTodo = false
@@ -94,7 +83,6 @@ struct ContentView: View {
 
     private func saveEditedTodo() {
         UserDefaults.standard.saveTodos(todos)
-        isEditingTodo = false
     }
 
     private func deleteTodos(at offsets: IndexSet) {

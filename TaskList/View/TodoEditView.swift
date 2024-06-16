@@ -27,9 +27,14 @@ struct TodoEditView: View {
             }
         }
         .navigationTitle(title)
-        .navigationBarItems(trailing: Button("Save") {
-            onSave()
-            presentationMode.wrappedValue.dismiss()
-        })
+        .navigationBarItems(
+            leading: Button("Cancel") {
+                presentationMode.wrappedValue.dismiss()
+            },
+            trailing: Button("Save") {
+                onSave()
+                presentationMode.wrappedValue.dismiss()
+            }
+        )
     }
 }
