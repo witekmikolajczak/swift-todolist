@@ -1,25 +1,8 @@
-import SwiftUI
+//
+//  TodoDetailView.swift
+//  TaskList
+//
+//  Created by Witek Mikolajczak on 16/06/2024.
+//
 
-struct TodoDetailView: View {
-    var todo: Todo
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(todo.title)
-                .font(.title)
-            Text(formatDate(todo.date))
-                .font(.subheadline)
-                .foregroundColor(.gray)
-            StatusIndicator(status: todo.status)
-        }
-        .padding()
-        .navigationTitle("Todo Details")
-    }
-
-    private func formatDate(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
-    }
-}
+import Foundation
